@@ -49,21 +49,30 @@ function renderPokemonCards(pokemonList, clearContainer = true) {
         elements.pokemonContainer.innerHTML = '';
     }
     
-    if (pokemonList.length === 0) {
-        elements.pokemonContainer.innerHTML = `
-            <div class="no-results">
-                <i class="fas fa-search"></i>
-                <h3>No se encontraron Pokémon</h3>
-                <p>Intenta con otros términos de búsqueda o filtros</p>
-            </div>
-        `;
+    if (pokemonList.length === 0 && clearContainer) {
+        showNoResults();
         return;
     }
     
-    pokemonList.forEach(pokemon => {
+    // Ordenar por ID antes de renderizar
+    const sortedPokemon = [...pokemonList].sort((a, b) => a.id - b.id);
+    
+    sortedPokemon.forEach(pokemon => {
         const card = createPokemonCard(pokemon);
         elements.pokemonContainer.appendChild(card);
     });
+}
+
+// Mostrar mensaje de no resultados
+function showNoResults() {
+    elements.pokemonContainer.innerHTML = `
+        <div class="no-results">
+            <i class="fas fa-search"></i>
+            <h3>No se encontraron Pokémon</h3>
+            <p>Intenta con otros términos de búsqueda o filtros</p>
+            <button class="retry-btn" onclick="resetSearch()">Mostrar Todos</button>
+        </div>
+    `;
 }
 
 // Crear tarjeta individual de Pokémon
@@ -101,7 +110,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Mostrar detalles del Pokémon (versión simplificada)
+// Mostrar detalles del Pokémon
 async function showPokemonDetail(pokemon) {
     console.log('Mostrando detalles de:', pokemon.name);
     
@@ -115,7 +124,6 @@ async function showPokemonDetail(pokemon) {
     elements.modal.style.display = 'block';
 
     try {
-        // Usar datos existentes o cargar de la API
         let pokemonData = pokemon;
         
         // Si el Pokémon no tiene descripción, intentar cargar de la API
@@ -123,17 +131,13 @@ async function showPokemonDetail(pokemon) {
             const apiData = await pokeAPI.getPokemonDetail(pokemon.id);
             if (apiData) {
                 pokemonData = apiData;
-                // Agregar descripción por defecto si no viene de la API
-                if (!pokemonData.description) {
-                    pokemonData.description = `¡Este es ${capitalizeFirstLetter(pokemonData.name)}, un Pokémon ${pokemonData.types.join('/')}!`;
-                }
             }
         }
         
         renderPokemonDetail(pokemonData);
     } catch (error) {
         console.error('Error cargando detalles:', error);
-        renderPokemonDetail(pokemon); // Usar datos básicos
+        renderPokemonDetail(pokemon);
     }
 }
 
@@ -147,6 +151,10 @@ function renderPokemonDetail(pokemon) {
         `<span class="ability">${capitalizeFirstLetter(ability.replace('-', ' '))}</span>`
     ).join('') : '<span class="ability">No disponible</span>';
 
+    // Obtener descripción (si existe)
+    const description = pokemon.description || 
+                       `¡Este es ${capitalizeFirstLetter(pokemon.name)}, un Pokémon ${pokemon.types.map(t => getTypeNameInSpanish(t)).join('/')}!`;
+
     elements.pokemonDetail.innerHTML = `
         <div class="detail-header">
             <div class="detail-image">
@@ -159,7 +167,7 @@ function renderPokemonDetail(pokemon) {
                 <div class="detail-types">
                     ${typesHTML}
                 </div>
-                <p class="pokemon-description">${pokemon.description || `Información sobre ${pokemon.name}`}</p>
+                <p class="pokemon-description">${description}</p>
             </div>
         </div>
         
@@ -178,6 +186,14 @@ function renderPokemonDetail(pokemon) {
                     <div class="stat-item">
                         <span>Defensa:</span>
                         <span>${pokemon.stats.defense}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>At. Esp:</span>
+                        <span>${pokemon.stats.spAttack || 'N/A'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Def. Esp:</span>
+                        <span>${pokemon.stats.spDefense || 'N/A'}</span>
                     </div>
                     <div class="stat-item">
                         <span>Velocidad:</span>
@@ -203,6 +219,12 @@ function renderPokemonDetail(pokemon) {
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="detail-actions">
+            <button class="action-btn" onclick="elements.modal.style.display='none'">
+                <i class="fas fa-times"></i> Cerrar
+            </button>
         </div>
     `;
 }
