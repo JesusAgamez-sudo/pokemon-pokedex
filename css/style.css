@@ -352,3 +352,450 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.7);
 }
+
+/* ... (estilos anteriores se mantienen) */
+
+/* Tabs de detalles */
+.detail-tabs {
+    display: flex;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    margin: 0 30px;
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    color: var(--secondary);
+    border-bottom-color: var(--secondary);
+}
+
+.tab-btn:hover {
+    color: white;
+}
+
+.tab-content {
+    padding: 20px 30px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Gráficos de estadísticas */
+.stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.stat-info {
+    display: flex;
+    justify-content: space-between;
+    width: 120px;
+    margin-right: 15px;
+}
+
+.stat-name {
+    font-weight: 500;
+}
+
+.stat-value {
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.stat-bar-container {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.stat-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+    position: relative;
+}
+
+.stat-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.stat-total {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--secondary);
+}
+
+/* Gráfico radar */
+.radar-chart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.radar-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.radar-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--circle-size);
+    height: var(--circle-size);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+.radar-stats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.radar-point {
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: var(--secondary);
+    border-radius: 50%;
+}
+
+.radar-label {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0.7;
+}
+
+.radar-polygon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.radar-polygon polygon {
+    fill: rgba(255, 203, 5, 0.2);
+    stroke: var(--secondary);
+    stroke-width: 2;
+}
+
+/* Sistema de evolución */
+.evolution-chain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.evolution-stage {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.evolution-stage:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.evolution-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.evolution-image img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.evolution-name {
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 4px;
+}
+
+.evolution-id {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.evolution-arrow {
+    color: var(--secondary);
+    font-size: 1.2rem;
+}
+
+.no-evolution {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 40px;
+}
+
+.no-evolution i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+/* Movimientos */
+.moves-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.move-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+}
+
+/* Información en grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.abilities {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ability {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+}
+
+/* Loading y estados */
+.loading {
+    text-align: center;
+    padding: 60px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.loading i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.error-message {
+    text-align: center;
+    padding: 60px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.error-message i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #ff6b6b;
+}
+
+.retry-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Modo oscuro/claro */
+body.light-mode {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #333;
+}
+
+body.light-mode .pokemon-card {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+body.light-mode .pokemon-name {
+    color: #333;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .radar-chart {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .evolution-chain {
+        flex-direction: column;
+    }
+    
+    .evolution-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .detail-tabs {
+        margin: 0 15px;
+    }
+    
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+/* Estados de carga y error */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    grid-column: 1 / -1;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.no-results i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.loading i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+#loading-indicator {
+    text-align: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+/* Estadísticas simplificadas */
+.stats-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Imagen de fallback */
+.pokemon-image img,
+.detail-image img {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}

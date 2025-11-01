@@ -60,7 +60,33 @@ const pokemonData = [
 ];
 
 // Tipos de Pokémon para los filtros
+// Tipos de Pokémon para los filtros
 const pokemonTypes = [
-    "all", "fire", "water", "grass", "electric", "psychic", 
-    "ice", "dragon", "ghost", "fighting", "normal", "flying"
+    "all", "normal", "fire", "water", "grass", "electric", 
+    "ice", "fighting", "poison", "ground", "flying", "psychic", 
+    "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"
+];
+
+// Datos de respaldo en caso de que la API falle
+const backupPokemonData = [
+    {
+        id: 1,
+        name: "bulbasaur",
+        types: ["grass", "poison"],
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+        stats: {
+            hp: 45,
+            attack: 49,
+            defense: 49,
+            spAttack: 65,
+            spDefense: 65,
+            speed: 45
+        },
+        height: "0.7 m",
+        weight: "6.9 kg",
+        description: "Bulbasaur puede verse tomando el sol. La semilla en su lomo crece al absorber nutrientes y luz solar.",
+        abilities: ["overgrow", "chlorophyll"],
+        evolution: [1, 2, 3]
+    }
+    // ... mantener los otros Pokémon de respaldo
 ];
